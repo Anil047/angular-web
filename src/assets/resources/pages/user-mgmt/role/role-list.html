@@ -1,0 +1,68 @@
+<div class="panel panel-default">
+    <div class="panel-heading">Role List</div>
+
+    <table class="table table-striped" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable"
+           [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+        <thead>
+        <tr>
+            <th width="10%">Actions</th>
+          <th><input [disabled]="mf.data.length==0" type="checkbox" (click)="onCheckBoxClk()"
+                     [(ngModel)]="checkBoxState"/></th>
+            <th>
+                <mfDefaultSorter by="code">Code</mfDefaultSorter>
+            </th>
+            <th>
+                <mfDefaultSorter by="name">Role</mfDefaultSorter>
+            </th>
+            <th>
+                Description
+            </th>
+        </tr>
+        <tr>
+            <th colspan="5">
+                Filter by name:
+                <input class="form-control" [(ngModel)]="filterQuery"/>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of mf.data; let rowIndex = index">
+            <td>
+                <button (click)="removeRole(item,rowIndex)" class="btn btn-danger btn-flat"><i class="fa fa-trash-o"></i> </button>
+                <button (click)="editRole(item,rowIndex)" class="btn btn-primary btn-flat"><i class="fa fa-edit"></i> </button>
+            </td>
+          <td><input type="checkbox" (click)="onEachCheckBoxClk(item)" [(ngModel)]="item.checked"
+                     class="icheckbox_minimal"/></td>
+            <td>{{item.code}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.description}}</td>
+        </tr>
+        <tr *ngIf="mf.data.length==0">
+          <td colspan="5" class="text-center text-info"><h4><i class="fa fa-info-circle"></i> There are no records
+            available.</h4></td>
+        </tr>
+        </tbody>
+
+        <tfoot>
+        <tr>
+            <td colspan="5">
+                <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+
+</div>
+<modal #deleteModal [keyboard]="false" [backdrop]="'static'" (onOpen)="onOpenModal()" (onClose)="onCloseModal()">
+  <modal-header [show-close]="false">
+    <h3 class="modal-title">DELETE</h3>
+  </modal-header>
+  <modal-body>
+    <h4 class="text-center"> <span class="text-danger"> <i class="fa fa-trash-o"></i> </span> Are you sure, you want to delete the seleted record?</h4>
+  </modal-body>
+  <modal-footer>
+    <button type="button" class="btn btn-default btn-flat" data-dismiss="modal" (click)="onDeleteConfirm(false)">Cancel</button>
+    <button type="button" class="btn btn-primary btn-flat" (click)="onDeleteConfirm(true)">OK</button>
+  </modal-footer>
+</modal>
+

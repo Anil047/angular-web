@@ -1,0 +1,41 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>
+   Role Setup
+    <small>Settings of Roles to use the application</small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a href="#">Role Setup</a></li>
+    <li class="active">{{currentPage}}</li>
+  </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+  <!-- Default box -->
+  <div class="box box-primary">
+    <div class="box-header with-border">
+
+        <div class="btn-group">
+          <button type="button" [disabled]="!newBtnState" (click)="naviageTo('form','New')" [ngClass]="{'active' : formMenu.newBtn === selected}" class="btn btn-default btn-flat"><i class="fa fa-plus-circle"></i>  New</button>
+          <button type="button" (click)="onDeleteBtnClk($event)" [disabled]="!deleteBtnState"
+                  [ngClass]="{'active' : formMenu.deleteBtn === selected}" class="btn btn-default btn-flat"><i
+            class="fa fa-minus-circle"></i> Delete
+          </button>
+          <button type="button" (click)="naviageToList('View All')"
+                  [ngClass]="{'active' : formMenu.viewBtn === selected}" class="btn btn-default btn-flat"><i
+            class="fa fa-list"></i> View All
+          </button>
+        </div>
+
+    </div>
+    <div class="box-body">
+      <router-outlet name="roleContainer"></router-outlet>
+    </div>
+
+  </div>
+  <!-- /.box -->
+
+</section>

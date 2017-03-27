@@ -1,0 +1,53 @@
+<div class="alert alert-success alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  <h4><i class="icon fa fa-check"></i> Alert!</h4>
+  Success alert preview. This alert is dismissable.
+</div>
+<form class="form-horizontal" [formGroup]="roleForm" (ngSubmit)="onSubmit($event)">
+  <input formControlName="id" type="hidden"/>
+  <div class="box-body">
+    <div class="form-group">
+      <label for="role-code" class="col-sm-3 control-label">Code</label>
+
+      <div class="col-sm-6">
+        <input type="text" formControlName="code" class="form-control" id="role-code" placeholder="Code">
+        <div class="help-block with-errors"
+             *ngIf="roleForm.controls.code.errors && roleForm.controls.code.dirty">
+          <p class="text-danger" *ngIf="roleForm.controls.code.errors.required">Code is a required field</p>
+        </div>
+      </div>
+      <div class="col-sm-3"></div>
+    </div>
+    <div class="form-group">
+      <label for="role-name" class="col-sm-3 control-label">Role</label>
+
+      <div class="col-sm-6">
+        <input type="text" formControlName="name" class="form-control" id="role-name" placeholder="Role">
+        <div class="help-block with-errors"
+             *ngIf="roleForm.controls.name.errors && roleForm.controls.name.dirty">
+          <p class="text-danger" *ngIf="roleForm.controls.name.errors.required">Role is a required field</p>
+          <p class="text-danger" *ngIf="roleForm.controls.name.errors.minlength">Role must be minimum 4 characters long</p>
+        </div>
+      </div>
+      <div class="col-sm-3"></div>
+    </div>
+    <div class="form-group">
+      <label for="role-description" class="col-sm-3 control-label">Description</label>
+
+      <div class="col-sm-6">
+        <textarea class="form-control" formControlName="description" rows="3" id="role-description" placeholder="Description of Role"></textarea>
+      </div>
+      <div class="col-sm-3"></div>
+    </div>
+
+  </div>
+  <!-- /.box-body -->
+
+  <div class="box-footer">
+    <div class="col-sm-9">
+      <button type="submit" [disabled]="!roleForm.valid"  class="btn btn-primary btn-flat pull-right">{{buttonName}}</button>
+      <button *ngIf="buttonName==='Update'" (click)="onAddNewBtnClk()" [disabled]="buttonName==='Submit'" type="button" class="btn btn-success btn-flat pull-right margin-r-5"><i class="fa fa-plus"></i> Add New</button>
+    </div>
+    <div class="col-sm-3"></div>
+  </div>
+</form>
